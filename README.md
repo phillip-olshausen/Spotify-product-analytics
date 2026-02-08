@@ -4,7 +4,7 @@
 This project builds **Spotify-like product analytics** metrics on a **real listening-events dataset** (Last.fm 1K listening history) using **PostgreSQL + SQL**.  
 Python is used only for **data acquisition + preparation** (export to CSV). The **analysis itself is SQL-first**.
 
-> **Why this is portfolio-appropriate:** it demonstrates analytics SQL (CTEs, joins, windows, cohorts) without claiming data engineering / DBA work.
+
 
 ## What you’ll compute (Spotify-style)
 - **DAU / WAU / MAU**
