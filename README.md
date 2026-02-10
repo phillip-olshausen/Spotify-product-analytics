@@ -36,7 +36,7 @@ Analyze user engagement and retention for a music-streaming platform using reali
 ```
 .
 ├── python/
-│   └── data_preprocessing.py
+│   └── spotify_analytics_data_acquistion.ipynb
 │
 ├── SQL/
 │   ├── schema-spotify-analytics.sql
