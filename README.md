@@ -1,5 +1,5 @@
 
-(https://github.com/user-attachments/files/25210566/README.7.md)
+
 # Spotify-Style Product Analytics (SQL + Tableau)
 
 This project demonstrates a **SQL-first product analytics workflow** inspired by how music-streaming products (e.g. Spotify) measure engagement, activation, retention, and depth of usage.
