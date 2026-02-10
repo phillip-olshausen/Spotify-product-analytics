@@ -8,6 +8,18 @@ Final metrics are then visualized in **Tableau Public** to communicate insights 
 
 ---
 
+## Dataset
+
+This project uses the **Last.fm 1K Users dataset**, a widely used public dataset containing timestamped music listening events.
+
+- **Source:** Last.fm / MTG-UPF  
+- **Coverage:** ~1,000 users, multiple years of listening history  
+- **Data type:** user–artist–track interactions with timestamps  
+
+The dataset is commonly used for research in music recommendation, user behavior analysis, and streaming analytics.  
+All metrics in this project are derived solely from these listening events.
+---
+
 ## Project overview
 
 **Goal:**  
