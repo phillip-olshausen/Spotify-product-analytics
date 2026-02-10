@@ -1,1 +1,1 @@
-here you can find the Data preprocessing, conducted with python on VS Code
+here you can find the data preprocessing, conducted with python on VS Code
