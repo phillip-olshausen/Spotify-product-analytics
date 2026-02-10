@@ -101,7 +101,7 @@ Metrics computed in SQL are exported as CSVs and visualized in **Tableau Public*
 
 ### User engagement over time (DAU / WAU / MAU)
 
-![DAU / WAU / MAU](tableau_graphics/dau_wau_mau.png)
+![DAU / WAU / MAU](tableau_graphics/dau-wau_mau.png)
 
 **Key insights**
 - DAU, WAU, and MAU grow steadily until 2008, indicating increasing user adoption and engagement.
