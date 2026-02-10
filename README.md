@@ -1,79 +1,155 @@
-[README.md](https://github.com/user-attachments/files/25169956/README.md)
-# Spotify-Style Product Analytics (SQL-first) — Activation, Engagement & Retention
 
-This project builds **Spotify-like product analytics** metrics on a **real listening-events dataset** (Last.fm 1K listening history) using **PostgreSQL + SQL**.  
-Python is used only for **data acquisition + preparation** (export to CSV). The **analysis itself is SQL-first**.
+(https://github.com/user-attachments/files/25210566/README.7.md)
+# Spotify-Style Product Analytics (SQL + Tableau)
 
+This project demonstrates a **SQL-first product analytics workflow** inspired by how music-streaming products (e.g. Spotify) measure engagement, activation, retention, and depth of usage.
 
+Raw listening events are transformed into **interpretable product metrics** using PostgreSQL.  
+Final metrics are then visualized in **Tableau Public** to communicate insights clearly.
 
-## What you’ll compute (Spotify-style)
-- **DAU / WAU / MAU**
-- **Activation rate (24h)** (proxy: signup_date if available, else first-seen date)
-- **Retention** (D1 / D7 / D30)
-- **Sessionization** (30-minute inactivity rule)
-- **“Save” proxy** (tracks listened ≥ N times)
+---
 
-## Tech
-- PostgreSQL (queries run in DBeaver or psql)
-- Python (datasets → CSV)
-- Dataset: Last.fm 1K listening events via Hugging Face Datasets
+## Project overview
 
+**Goal:**  
+Analyze user engagement and retention for a music-streaming platform using realistic product analytics metrics.
+
+**Key questions answered:**
+- Are users active over time? (DAU / WAU / MAU)
+- Do new users reach value quickly? (24h activation)
+- Do users come back? (D1 / D7 / D30 retention)
+- How deeply do users engage when active? (sessions per user)
+
+---
+
+## Tech stack
+
+- **PostgreSQL** — core metric computation (SQL-first)
+- **Python** — lightweight preprocessing & CSV export
+- **Tableau Public** — stakeholder-facing visualization
+- **DBeaver** — database exploration & CSV export
+
+---
+
+## Repository structure
 
 ```
-
-## Quickstart
-
-### 1) Create a virtual environment
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+.
+├── python/
+│   └── data_preprocessing.py
+│
+├── sql/
+│   ├── schema_and_derived_tables.sql
+│   └── queries/
+│       ├── active_users.sql
+│       ├── activation_24h.sql
+│       ├── retention.sql
+│       └── engagement_depth.sql
+│
+├── tableau_graphics/
+│   └── dau_wau_mau.png
+│
+└── README.md
 ```
 
-### 2) Download & export the raw dataset to CSV
-```bash
-python python/01_download_and_export.py
-```
-This writes:
-- `data/events_train.csv`
-- `data/events_valid.csv`
-- `data/events_test.csv`
+---
 
-### 3) Prepare analytics tables (users + plays)
-```bash
-python python/02_prepare_tables.py
-```
-This writes:
-- `data/users.csv`
-- `data/plays.csv`
+## Data & preprocessing (`python/`)
 
-### 4) Load into PostgreSQL (recommended via DBeaver)
-1. Create a database: `spotify_analytics`
-2. Run `sql/01_schema.sql`
-3. Import:
-   - `data/users.csv` → table `users`
-   - `data/plays.csv` → table `plays`
-   
-**DBeaver import path:** right-click table → **Import Data** → CSV → select file.
+Python is used **only** for:
+- loading the raw dataset
+- basic cleaning
+- exporting CSVs for ingestion into PostgreSQL
 
-### 5) Build derived tables
-Run:
-- `sql/02_build_sessions.sql`
-- `sql/03_build_saves_proxy.sql` (default listen threshold = 5)
+All business logic and metrics are computed in SQL.  
+This mirrors real analytics pipelines where Python handles ingestion and SQL handles analysis.
 
-### 6) Run metrics queries
-Run the files under `sql/queries/`.
+---
 
-## Notes on “Spotify-like” proxies
-The dataset does not contain explicit **skip** or **save** events.
-- **Sessions** are inferred via time gaps (30 minutes)
-- **Saves** are approximated by repeated listens (≥ N plays per user-track)
+## SQL analytics layer (`sql/`)
 
-These are realistic product-analytics approaches when raw events don’t contain direct signals.
+All core product logic lives in PostgreSQL.
 
-## Suggested portfolio bullets
-- Built a SQL-first product analytics project (PostgreSQL) on real listening-event data to compute DAU/WAU/MAU, activation, retention cohorts, and engagement depth metrics.
-- Implemented sessionization and “save” proxies to mirror Spotify-style behavioral signals when explicit events were unavailable.
+### Schema & derived tables
+The file `schema_and_derived_tables.sql` defines:
+- base tables (`users`, `plays`)
+- derived tables:
+  - `sessions` — inferred using a 30-minute inactivity rule
+  - `saves` — proxy signal based on repeated listens
 
-## License / data
-This repository stores only **code**. The generated CSVs in `data/` are ignored by git.
+### Metric queries (`sql/queries/`)
+
+Each query produces a **final, visualization-ready metric table**:
+
+- **Active users**
+  - DAU / WAU / MAU
+- **Activation**
+  - % of users with first play within 24 hours
+- **Retention**
+  - D1 / D7 / D30 cohort-based retention
+- **Engagement depth**
+  - Average sessions per active user per day
+
+These queries are intentionally simple, explicit, and reproducible.
+
+---
+
+## Tableau visualization layer (`tableau_graphics/`)
+
+Metrics computed in SQL are exported as CSVs and visualized in **Tableau Public**.
+
+> Tableau Public does not support direct PostgreSQL connections, so final metric tables are exported and used as data sources.  
+> This keeps all business logic in SQL and Tableau focused purely on communication.
+
+### Example: User engagement over time
+
+![DAU / WAU / MAU](tableau_graphics/dau_wau_mau.png)
+
+This chart shows daily, weekly, and monthly active users to illustrate:
+- usage rhythm
+- relative engagement scale
+- overall active user base
+
+Additional dashboards (activation, retention, engagement depth) follow the same pattern.
+
+---
+
+## Key assumptions & proxies
+
+To reflect real-world constraints, the following assumptions are used:
+
+- **Activation**: a user is considered activated if they play a track within 24h of signup (or first-seen date if signup is missing)
+- **Retention**: cohort-based, measured at D1 / D7 / D30
+- **Sessions**: inferred using a 30-minute inactivity threshold
+- **Saves**: proxied via repeated listens due to missing explicit “like” events
+
+All assumptions are documented and intentionally conservative.
+
+---
+
+## Why this project
+
+This project is designed to mirror **real product analytics work**, not academic exercises:
+- SQL-first metric definitions
+- Clear separation between computation and visualization
+- Focus on interpretable, decision-relevant KPIs
+- No over-engineering or black-box modeling
+
+It reflects how analytics teams communicate product health to stakeholders.
+
+---
+
+## Potential extensions
+
+- Retention segmented by geography or activity level
+- Funnel analysis (signup → first play → repeat play)
+- Cohort heatmaps in Tableau
+- Playlist- or artist-level engagement analysis
+
+---
+
+## Author
+
+Phillip Olshausen  
+Master’s student — Quantitative Finance & Data Science  
+Focus: data science, product analytics, and music-related applications
