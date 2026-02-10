@@ -108,7 +108,7 @@ Metrics computed in SQL are exported as CSVs and visualized in **Tableau Public*
 
 This chart shows daily, weekly, and monthly active users to illustrate:
 - usage rhythm
-- relative engagement scale
+- relative engagement scal
 - overall active user base
 
 Additional dashboards (activation, retention, engagement depth) follow the same pattern.
