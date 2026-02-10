@@ -1,5 +1,4 @@
 
-
 # Spotify-Style Product Analytics (SQL + Tableau)
 
 This project demonstrates a **SQL-first product analytics workflow** inspired by how music-streaming products (e.g. Spotify) measure engagement, activation, retention, and depth of usage.
@@ -48,7 +47,9 @@ Analyze user engagement and retention for a music-streaming platform using reali
 │       └── engagement_spotify.sql.sql
 │
 ├── tableau_graphics/
-│   └── dau-wau_mau.png
+│   ├── dau_wau_mau.png
+│   ├── tableau_retention.png
+│   └── tableau_engagement_depth.png
 │
 └── README.md
 ```
@@ -82,36 +83,52 @@ The file `schema_and_derived_tables.sql` defines:
 
 Each query produces a **final, visualization-ready metric table**:
 
-- **Active users**
-  - DAU / WAU / MAU
-- **Activation**
-  - % of users with first play within 24 hours
-- **Retention**
-  - D1 / D7 / D30 cohort-based retention
-- **Engagement depth**
-  - Average sessions per active user per day
-
-These queries are intentionally simple, explicit, and reproducible.
+- **Active users** — DAU / WAU / MAU  
+- **Activation** — % of users with first play within 24 hours  
+- **Retention** — D1 / D7 / D30 cohort-based retention  
+- **Engagement depth** — average sessions per active user  
 
 ---
 
-## Tableau visualization layer (`tableau_graphics/`)
+## Tableau dashboards & key insights (`tableau_graphics/`)
 
 Metrics computed in SQL are exported as CSVs and visualized in **Tableau Public**.
 
 > Tableau Public does not support direct PostgreSQL connections, so final metric tables are exported and used as data sources.  
 > This keeps all business logic in SQL and Tableau focused purely on communication.
 
-### Example: User engagement over time
+---
 
-![DAU / WAU / MAU](tableau_graphics/dau-wau_mau.png)
+### User engagement over time (DAU / WAU / MAU)
 
-This chart shows daily, weekly, and monthly active users to illustrate:
-- usage rhythm
-- relative engagement scal
-- overall active user base
+![DAU / WAU / MAU](tableau_graphics/dau_wau_mau.png)
 
-Additional dashboards (activation, retention, engagement depth) follow the same pattern.
+**Key insights**
+- DAU, WAU, and MAU grow steadily until 2008, indicating increasing user adoption and engagement.
+- The large gap between DAU and MAU suggests many users engage episodically rather than daily, a common pattern in music streaming.
+- The sharp decline after 2009 reflects dataset coverage rather than a real product collapse and highlights the importance of understanding data boundaries.
+
+---
+
+### User retention (D1 / D7 / D30)
+
+![Retention](tableau_graphics/tableau_retention.png)
+
+**Key insights**
+- Day‑1 and Day‑7 retention are very similar, suggesting that users who return once are likely to come back again shortly after.
+- Higher Day‑30 retention indicates a subset of users that develop long‑term listening habits.
+- This pattern is consistent with products where initial exploration is common but sustained engagement concentrates among power users.
+
+---
+
+### Engagement depth (sessions per active user)
+
+![Engagement depth](tableau_graphics/tableau_engagement_depth.png)
+
+**Key insights**
+- Engagement depth remains high during peak years, indicating that active users listen in multiple sessions per day.
+- The sharp drop in later years mirrors the decline in active users and reflects reduced dataset activity rather than reduced individual engagement.
+- Combined with retention, this suggests that while the user base thins over time, remaining users are highly engaged.
 
 ---
 
@@ -152,5 +169,5 @@ It reflects how analytics teams communicate product health to stakeholders.
 ## Author
 
 Phillip Olshausen  
-Master’s student — Data Science & Quantitative Finance 
+Master’s student — Quantitative Finance & Data Science  
 Focus: data science, product analytics, and music-related applications
