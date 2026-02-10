@@ -181,5 +181,5 @@ It reflects how analytics teams communicate product health to stakeholders.
 ## Author
 
 Phillip Olshausen  
-Master’s student — Data Science & Quantitative Finance 
+Master’s student — Data Science & Quantitative Finance  
 Focus: data science, product analytics, and music-related applications
