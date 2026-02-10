@@ -40,6 +40,7 @@ Analyze user engagement and retention for a music-streaming platform using reali
 │
 ├── sql/
 │   ├── schema_and_derived_tables.sql
+│   ├── schema_and_derived_tables.sql
 │   └── queries/
 │       ├── active_users.sql
 │       ├── activation_24h.sql
@@ -47,7 +48,7 @@ Analyze user engagement and retention for a music-streaming platform using reali
 │       └── engagement_depth.sql
 │
 ├── tableau_graphics/
-│   └── dau_wau_mau.png
+│   └── dau-wau_mau.png
 │
 └── README.md
 ```
@@ -103,7 +104,7 @@ Metrics computed in SQL are exported as CSVs and visualized in **Tableau Public*
 
 ### Example: User engagement over time
 
-![DAU / WAU / MAU](tableau_graphics/dau_wau_mau.png)
+![DAU / WAU / MAU](tableau_graphics/dau-wau_mau.png)
 
 This chart shows daily, weekly, and monthly active users to illustrate:
 - usage rhythm
@@ -151,5 +152,5 @@ It reflects how analytics teams communicate product health to stakeholders.
 ## Author
 
 Phillip Olshausen  
-Master’s student — Quantitative Finance & Data Science  
+Master’s student — Data Science & Quantitative Finance 
 Focus: data science, product analytics, and music-related applications
