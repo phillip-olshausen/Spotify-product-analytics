@@ -38,14 +38,14 @@ Analyze user engagement and retention for a music-streaming platform using reali
 ├── python/
 │   └── data_preprocessing.py
 │
-├── sql/
-│   ├── schema_and_derived_tables.sql
-│   ├── schema_and_derived_tables.sql
+├── SQL/
+│   ├── schema-spotify-analytics.sql
+│   ├── build_sessions+saves_spotify.sql
 │   └── queries/
-│       ├── active_users.sql
-│       ├── activation_24h.sql
-│       ├── retention.sql
-│       └── engagement_depth.sql
+│       ├── product_metrics_spotify.sql.sql
+│       ├── activation_spotify.sql.sql
+│       ├── spotify_retention.sql
+│       └── engagement_spotify.sql.sql
 │
 ├── tableau_graphics/
 │   └── dau-wau_mau.png
